@@ -7,31 +7,51 @@ using namespace std;
 
 ifstream fin;
 
-class read
+class reader
 {
 
 	public:
-		
+
+		vector <int> oned_graph;
 		int graph_reader()
 		{
-			int i=0,x,len;
-			vector <int> oned_graph;
-			fin.open("test_input1.txt");
-			if (!fin)
-		       	{
-				cerr << "Unable to open file datafile.txt";
-			        exit(1);   // call system to stop
-			}
+			int i=0,x,len,flag=1;
+			fin.open("facebook_combined.txt");
+			
 			while(fin>>x)
 			{
-				 oned_graph.push_back(x);
-								 
+
+				 oned_graph.emplace_back(x); 
 			}
+			
 		}
-		
-		int input_graph[oned_graph.size()/2][oned_graph.size()/2];
+
+		int display()
+		{
+			int i,j,len;
+
+			len=oned_graph.size();
+
+			for(i=0;i<len;i++)
+			{
+				cout<<oned_graph[i]<<" ";
+			}
+			
+		}
+
+}read;
+
+/*
+class converter
+{
+
+public:
+
+		int input_graph[read.oned_graph.size()/2][read.oned_graph.size()/2];
 		int convert_to_array()
 		{
+			int i,j;
+
 			for(i=0;i<oned_graph.size();i+2)
 			{
 				input_graph[j][0]=oned_graph[i];
@@ -53,12 +73,12 @@ class read
 		}
 
 }reader;
-
+*/
 int main()
 {
-	reader.graph_reader();
-	reader.convert_to_array();
-	reader.display();
+	read.graph_reader();
+	//read.convert_to_array();
+	read.display();
 	return 0;
 }
 
