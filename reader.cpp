@@ -6,35 +6,44 @@
 using namespace std;
 
 ifstream fin;
-
-class reader
+ofstream fout;
+class reader 	
 {
 
 	public:
 
-		vector <int> oned_graph;
+		vector <vector <int> > input_graph; 	//member variable
 		int graph_reader()
 		{
-			int i=0,x,len,flag=1;
+			int i=0,x,len,j=0,flag=1;
 			fin.open("facebook_combined.txt");
 			
-			while(fin>>x)
+			while(!fin.eof())
 			{
-
-				 oned_graph.emplace_back(x); 
+				input_graph.push_back(vector<int>());
+				for(i=0;i<2;i++)
+				{
+					fin>>x;
+					 input_graph[j].push_back(x); 
+				}
+				j++;
 			}
 			
 		}
 
-		int display()
+		int display_dump()
 		{
 			int i,j,len;
-
-			len=oned_graph.size();
+			fout.open("display_dump.txt");
+			len=input_graph.size();
 
 			for(i=0;i<len;i++)
 			{
-				cout<<oned_graph[i]<<" ";
+				for(j=0;j<2;j++)
+				{
+					fout<<input_graph[i][j]<<" ";
+				}
+				fout<<"\n";
 			}
 			
 		}
@@ -78,7 +87,7 @@ int main()
 {
 	read.graph_reader();
 	//read.convert_to_array();
-	read.display();
+	read.display_dump();
 	return 0;
 }
 
