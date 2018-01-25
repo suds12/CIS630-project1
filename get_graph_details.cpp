@@ -10,9 +10,6 @@ using namespace std;
 class details_collector
 {
 public:
-
-
-
 	int get_data()
 	{
 		int i=0,j;
@@ -22,11 +19,16 @@ public:
 		{
 			for(j=0;j<2;j++)
 			{
-				//cout<<graph.input_graph[i][j]<<"\n";
+				
 				graph.node_degree[graph.input_graph[i][j]]++;
+				if(graph.input_graph[i][j]>graph.largest_node)	//Find largest node
+				{
+					graph.largest_node=graph.input_graph[i][j];
+				}
 			}
 			i++;
 		}
+		//cout<<graph.largest_node;
 	}
 
 }data;

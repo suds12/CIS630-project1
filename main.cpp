@@ -5,7 +5,7 @@
 
 using namespace std;
 
-#include "get_graph_details.cpp"
+#include "page_rank.cpp"
 
 
 class extra
@@ -31,6 +31,13 @@ public:
 			{
 				fout[2]<<graph.node_degree[i]<<"\n";
 			}
+
+			fout[3].open("dump/credit_dump.txt");
+			for(i=0;i<=graph.largest_node;i++)
+			{
+				fout[3]<<i<<" "<<graph.credit[i][1]<<"\n";
+			}
+
 		
 			
 			
@@ -40,6 +47,8 @@ public:
 		{
 			read.graph_reader();
 			data.get_data();
+			pr.initial_credits_populator();
+			pr.credits_exchanger();
 			display_dump();
 		}
 
