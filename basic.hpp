@@ -27,3 +27,12 @@ public:
 	}
 
 }graph;
+
+
+class input_parameters
+{
+public:
+	string filename;
+	int number_of_rounds;
+}input;
+

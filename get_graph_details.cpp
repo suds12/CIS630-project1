@@ -20,15 +20,15 @@ public:
 			for(j=0;j<2;j++)
 			{
 				
-				graph.node_degree[graph.input_graph[i][j]]++;
-				if(graph.input_graph[i][j]>graph.largest_node)	//Find largest node
+				graph.node_degree[graph.input_graph[i][j]]++;   //Find degree
+
+				if(graph.input_graph[i][j]>graph.largest_node)	
 				{
-					graph.largest_node=graph.input_graph[i][j];
+					graph.largest_node=graph.input_graph[i][j];	//Find largest node
 				}
 			}
 			i++;
 		}
-		//cout<<graph.largest_node;
 	}
 
 }data;

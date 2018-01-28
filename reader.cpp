@@ -18,7 +18,7 @@ class reader
 		int graph_reader()
 		{
 			int i=0,x,j=0,flag=1;
-			fin[0].open("facebook_combined.txt");
+			fin[0].open(input.filename.c_str());
 			
 			while(!fin[0].eof())
 			{
