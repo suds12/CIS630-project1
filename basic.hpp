@@ -23,7 +23,7 @@ public:
 	{
 		current_round=1;
 		largest_node=0;
-		node_degree.reserve(50000);
+		node_degree.reserve(50000000);
 	}
 
 }graph;
