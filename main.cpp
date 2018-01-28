@@ -49,16 +49,21 @@ public:
 			int i=0; 
 			int start_s=clock();   
 			
+			cout<<"started reading"<<endl;
 			read.graph_reader();
+			cout<<"started degree"<<endl;
 			data.get_data();
+			cout<<"started initial credits"<<endl; 
 			pr.initial_credits_populator();
 			while(i < input.number_of_rounds)
 			{
+				cout<<endl<<"started round :"<<i+1<<endl;
 				pr.credits_exchanger();
 				cout<<graph.credit[graph.input_graph[1][0]][graph.current_round]<<endl;
 				i++;
 				graph.current_round++;
 			}
+			cout<<"started display"<<endl;
 			display_dump();
 
 			int stop_s=clock();
