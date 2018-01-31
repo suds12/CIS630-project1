@@ -24,16 +24,16 @@ public:
 
 				//cout<<endl<<"edge no : "<<i<<" **"<<graph.input_details[graph.input_graph[i][0]][0];
 				graph.relevant_edges[graph.input_details[graph.input_graph[i][0]][2]].push_back(i);
-				//graph.relevant_edges[graph.input_details[graph.input_graph[i][0]][2]][0]++;
+				graph.relevant_edges[graph.input_details[graph.input_graph[i][0]][2]][0]++;
 				
 			}
 			
 			else																			//Using if block so that each unique partition gets the edge only once
 			{
 				graph.relevant_edges[graph.input_details[graph.input_graph[i][0]][2]].push_back(i);	
-				//graph.relevant_edges[graph.input_details[graph.input_graph[i][0]][2]][0]++;	
+				graph.relevant_edges[graph.input_details[graph.input_graph[i][0]][2]][0]++;	
 				graph.relevant_edges[graph.input_details[graph.input_graph[i][1]][2]].push_back(i);
-				//graph.relevant_edges[graph.input_details[graph.input_graph[i][1]][2]][0]++;
+				graph.relevant_edges[graph.input_details[graph.input_graph[i][1]][2]][0]++;
 			}
 			
 
@@ -55,8 +55,7 @@ public:
 		
 
 		i=0,j=0;
-		graph.number_of_nodes=graph.input_details.size();
-		cout<<graph.number_of_nodes<<endl;
+		
 		/*
 		while(i < graph.number_of_nodes)
 		{

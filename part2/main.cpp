@@ -4,7 +4,7 @@
 #include<string>
 #include<cstdlib>
 
-#include "get_graph_details.cpp"
+#include "page_rank.cpp"
 using namespace std;
 
 class extra
@@ -46,6 +46,16 @@ public:
 				}
 				fout[3]<<"\n";
 			}
+
+
+			fout[4].open("dump/credits_dump.txt");
+			for(i=0;i<graph.number_of_nodes;i++)
+			{
+				
+				fout[4]<<graph.credit[i][1]<<"\n";
+				
+				
+			}
 			
 	}
 
@@ -58,9 +68,11 @@ public:
 			read.graph_reader();
 			cout<<"started degree"<<endl;
 			data.get_data();
-			/*
+
 			cout<<"started initial credits"<<endl; 
 			pr.initial_credits_populator();
+			/*
+
 			while(i < input.number_of_rounds)
 			{
 				cout<<endl<<"started round :"<<i+1<<endl;
@@ -69,7 +81,24 @@ public:
 				i++;
 				graph.current_round++;
 			}
+			
 			*/
+			cout<<graph.number_of_nodes<<endl;
+			
+			for(i=0;i<graph.number_of_rows;i++)  
+			{
+				pr.credits_exchanger(graph.input_graph[i][0],graph.input_graph[i][1],graph.current_round);	
+			}
+
+
+			for(i=0;i<6;i++)
+			{
+				cerr<<graph.credit[i][1]<<endl;
+			}
+
+
+			
+			//pr.credits_exchanger(2,3,1);
 			cout<<"started display"<<endl;
 			display_dump();
 

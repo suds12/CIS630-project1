@@ -7,8 +7,8 @@
 
 using namespace std;
 
-ifstream fin[5];
-ofstream fout[5];
+ifstream fin[10];
+ofstream fout[10];
 
 class basic_details
 {

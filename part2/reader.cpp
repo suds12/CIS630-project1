@@ -49,6 +49,13 @@ class reader
 				j++;
 			}
 
+			graph.number_of_rows=graph.input_graph.size();//Finding size
+			graph.number_of_rows--;  //Adjusting index
+			graph.number_of_nodes=graph.input_details.size();//Finding size
+			graph.number_of_nodes--; // Adjusting index
+			
+			
+
 			for(i=0;i<number_of_partitions;i++)				//populating initial count of relevating edges of each node to 0 
 			{
 				graph.relevant_edges.push_back(vector<int>());
