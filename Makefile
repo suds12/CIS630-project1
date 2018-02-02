@@ -1,8 +1,9 @@
+GCC=mpic++
 
-all: main output
+all: Final_PageRank.cpp
+	$(GCC) ./Final_PageRank.cpp -o main  
 
-main: main.cpp
-	g++ main.cpp -o output.out 
+ 
+run: main 
+	mpiexec -np 4 main test1.txt test1_details 5 4
 
-output: output.out
-	./output.out orkut.txt 2
