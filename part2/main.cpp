@@ -16,37 +16,37 @@ class extra
 public:
 	int display_dump()
 	{
-			int i,j;
-			fout[1].open("dump/input_dump.txt");
-			
+		int i,j;
+		fout[1].open("dump/input_dump.txt");
 
-			for(i=0;i<graph.number_of_rows;i++)
+
+		for(i=0;i<graph.number_of_rows;i++)
+		{
+			for(j=0;j<2;j++)
 			{
-				for(j=0;j<2;j++)
-				{
-					fout[1]<<graph.input_graph[i][j]<<" ";
-				}
-				fout[1]<<"\n";
+				fout[1]<<graph.input_graph[i][j]<<" ";
 			}
+			fout[1]<<"\n";
+		}
 
-			fout[2].open("dump/detail_dump.txt");
-			for(i=0;i<graph.number_of_nodes;i++)
+		fout[2].open("dump/detail_dump.txt");
+		for(i=0;i<graph.number_of_nodes;i++)
+		{
+			for(j=0;j<3;j++)
 			{
-				for(j=0;j<3;j++)
-				{
-					fout[2]<<graph.input_details[i][j]<<" ";
-				}
-				fout[2]<<"\n";
+				fout[2]<<graph.input_details[i][j]<<" ";
+			}
+			fout[2]<<"\n";
 				//---------
-			}
+		}
 
-			int temp;
-			fout[3].open("dump/relevant_edges_dump.txt");
-			for(i=0;i<number_of_partitions;i++)
-			{
-				temp=graph.relevant_edges[i][0];
-				temp++;
-				fout[3]<<i<<" ";
+		int temp;
+		fout[3].open("dump/relevant_edges_dump.txt");
+		for(i=0;i<number_of_partitions;i++)
+		{
+			temp=graph.relevant_edges[i][0];
+			temp++;
+			fout[3]<<i<<" ";
 				for(j=0;j<temp;j++)   //graph.relevant_edges[i][0]
 				{
 					fout[3]<<graph.relevant_edges[i][j]<<" ";
@@ -60,7 +60,7 @@ public:
 				fout[4]<<i<<" "<<graph.credit[i][1]<<"\n";
 			}
 
-						
+
 			fout[5].open("dump/relevant_partition_dump.txt");
 			for(i=0;i<graph.number_of_nodes;i++)
 			{
@@ -79,9 +79,9 @@ public:
 			
 			//cerr<<graph.relevant_partitions[1][2];
 			
-	}
+		}
 
-	int accumulator()
+		int accumulator()
 		{
 			int i=0; 
 			int start_s=clock();   
@@ -129,120 +129,122 @@ public:
 			
 		}
 
-}et;
+	}et;
 
-class process_manager
-{
-public:
-	int trigger;
-
-	process_manager()
+	class process_manager
 	{
-		
-		trigger=0;
-		
-	}
-}p[number_of_partitions];
+	public:
+		int trigger;
 
-int main(int argc, char** argv)
-{
+		process_manager()
+		{
 
-	int i, j, k, l=1, tg=0, local[10];
+			trigger=0;
+
+		}
+	}p[number_of_partitions];
+
+	int main(int argc, char** argv)
+	{
+
+		int i, j, k, m, l=1, tg=0, local[10];
 	//string credit_filename;
-	int temp[10];
-	MPI_Init(&argc, &argv);
-  	int world_rank,world_size;
-  	MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);
-  	MPI_Comm_size(MPI_COMM_WORLD, &world_size);
-	input.filename=argv[1];
-	input.details=argv[2];
+		int temp[10];
+		MPI_Init(&argc, &argv);
+		int world_rank,world_size;
+		MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);
+		MPI_Comm_size(MPI_COMM_WORLD, &world_size);
+		input.filename=argv[1];
+		input.details=argv[2];
 
 	//----------------
-		cout<<"started reading"<<endl;
+		//cout<<"started reading"<<endl;
 		read.graph_reader();
-		cout<<"started degree"<<endl;
+		//cout<<"started degree"<<endl;
 		data.get_data();
-		cout<<"started initial credits"<<endl; 
+		//cout<<"started initial credits"<<endl; 
 		pr.initial_credits_populator();
-		cout<<endl<<"done"<<endl;
+		//cout<<endl<<"done"<<endl;
 	//--------------------
 	//input.number_of_rounds=atoi(argv[2]);
-	
 
-	while(l!=number_of_rounds)
-	{
 
-		for(i=0;i<number_of_partitions;i++)
+		while(l<=number_of_rounds)
 		{
-			if(world_rank==i)
+			for(i=0;i<number_of_partitions;i++)
 			{
-
-				for(j=1;j<=graph.relevant_edges[i][0];j++)
+				if(world_rank==i)
 				{
-					pr.credits_exchanger(graph.input_graph[graph.relevant_edges[i][j]][0], graph.input_graph[graph.relevant_edges[i][j]][1], 1);
-					if(world_rank==0)
+					cout<<"started round "<<l<<" From partition "<<i<<endl;
+
+					for(j=1;j<=graph.relevant_edges[i][0];j++)
 					{
-						//cout<<endl<<graph.input_graph[graph.relevant_edges[i][j]][0]<<"exg"<<graph.input_graph[graph.relevant_edges[i][j]][1];
-
-
+						pr.credits_exchanger(graph.input_graph[graph.relevant_edges[i][j]][0], graph.input_graph[graph.relevant_edges[i][j]][1], l);
 					}
-					cout<<endl<<j<<"^^"<<i;
+				//cout<<endl<<"fincr "<<graph.number_of_nodes*l<<" " << world_rank << endl;
+					MPI_Allreduce(MPI_IN_PLACE, *graph.credit, 500, MPI_FLOAT, MPI_MAX, MPI_COMM_WORLD);
+
 					
+					//MPI_Barrier(MPI_COMM_WORLD);
+					//cout<<endl<<"end "<<graph.number_of_nodes*l<<" " << world_rank << endl;
+					cout<<"ended round "<<l<<" From partition "<<graph.credit[1][2]<<endl;
+
+
+
 				}
 
-				//---------------------------------------------
-				
-				stringstream credit_filename;
-	    		credit_filename << "dump/credits_dump" << i << ".txt";
-				fout[6+i].open(credit_filename.str());
-				for(k=0;k<graph.number_of_nodes;k++)
-				{
-					//if(graph.input_details[k][2]==i)
-						fout[6+i]<<k<<" **"<<graph.credit[k][1]<<"\n";
-				}
-				
-				//MPI_Allreduce(MPI_IN_PLACE, &graph.credit, (graph.number_of_nodes*l), MPI_FLOAT, MPI_SUM, MPI_COMM_WORLD);
 			}
+			l++;
+			graph.current_round++;
 		}
-		l++;
-	}
+		stringstream credit_filename;
+		credit_filename << "dump/credits_dump_" << world_rank << ".txt";
+		fout[6+i].open(credit_filename.str());
+		for(k=0;k<graph.number_of_nodes;k++)
+		{
+			for(m=0;m<=number_of_rounds;m++)
+			{
+				fout[6+i]<<graph.credit[k][m]<<" ";
+			}
+			fout[6+i]<<endl;
+		}
 
 
-	
 
-	if(world_rank==0)
-	{
-		
-		
+
+		if(world_rank==0)
+		{
+
+
 		//------------------
-		
+
 
 		//cout<<endl<<graph.relevant_partitions[graph.input_graph[1][0]][2]<<endl;
 		//cout<<endl<<graph.input_details[graph.input_graph[1][1]][2]<<endl;
 
-		
+
 
 
 		//MPI_Send(&tg, 1, MPI_INT, 4, 0, MPI_COMM_WORLD);
-		
+
 		//et.accumulator();
-	}
-	et.display_dump();
+		}
+		et.display_dump();
 
 
-	if(world_rank==1)
-	{
+		if(world_rank==1)
+		{
 		//MPI_Recv(&tg, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);	
 
-	}
+		}
 
 
-	
 
-	
-	
-	
+
+
+
+
 	//MPI_Barrier(MPI_COMM_WORLD);
-	MPI_Finalize();
-}
+		MPI_Finalize();
+	}
 

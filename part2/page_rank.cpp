@@ -21,9 +21,16 @@ public:
 		
 		for(i=0;i<=graph.largest_node;i++)
 		{
+			/*
 			graph.credit.push_back(vector<float>());
 			graph.credit[i].push_back(1);
 			graph.credit[i].push_back(0);
+			*/
+			//------------------------
+			graph.credit[i][0]=1;
+			//graph.credit[i][1]=0;
+
+			//------------------------
 			//cout<<graph.credit[graph.input_graph[i][1]][graph.current_round-1];
 		}
 		//cout<<graph.input_graph[4][1];

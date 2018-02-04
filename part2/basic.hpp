@@ -4,7 +4,7 @@
 #include<string>
 #pragma once
 #define number_of_partitions 4
-#define number_of_rounds 2
+#define number_of_rounds 3
 
 using namespace std;
 
@@ -19,12 +19,14 @@ public:
 	int largest_node;
 	int largest_partition;
 	int current_round;
+	float credit[50][10];
 	vector <int> node_degree;
-	vector <vector <float> > credit;
+	//vector <vector <float> > credit;
 	vector <vector <int> > input_graph;			//edge list
 	vector <vector <int> > input_details;		//node list
 	vector <vector <int> > relevant_edges;		//partition list
 	vector <vector <int> > relevant_partitions; //node list
+
 
 	basic_details()
 	{

@@ -49,7 +49,7 @@ int main(int argc, char** argv)
 			}
 
 			//---------------------------------------------
-			
+			/*
 			stringstream credit_filename;
     		credit_filename << "dump/credits_dump" << i << ".txt";
 			fout[6+i].open(credit_filename.str());
@@ -58,7 +58,7 @@ int main(int argc, char** argv)
 				if(graph.input_details[k][2]==i)
 					fout[6+i]<<k<<" "<<graph.credit[k][1]<<"\n";
 			}
-			
+			*/
 			
 			
 		}

@@ -5,4 +5,4 @@ all: main.cpp
 
  
 run: main 
-	mpiexec -np 5 ./main test1.txt test_details.txt 5 4
+	mpiexec -np 4 ./main test1.txt test_details.txt 5 4
