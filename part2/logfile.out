@@ -1,0 +1,132 @@
+==9073== Memcheck, a memory error detector
+==9073== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
+==9073== Using Valgrind-3.11.0 and LibVEX; rerun with -h for copyright info
+==9073== Command: mpirun -np 4 ./a.out test1.txt test_details.txt
+==9073== Parent PID: 2375
+==9073== 
+--9073-- 
+--9073-- Valgrind options:
+--9073--    --leak-check=full
+--9073--    --log-file=logfile.out
+--9073--    -v
+--9073-- Contents of /proc/version:
+--9073--   Linux version 4.13.0-32-generic (buildd@lgw01-amd64-004) (gcc version 5.4.0 20160609 (Ubuntu 5.4.0-6ubuntu1~16.04.5)) #35~16.04.1-Ubuntu SMP Thu Jan 25 10:13:43 UTC 2018
+--9073-- 
+--9073-- Arch and hwcaps: AMD64, LittleEndian, amd64-cx16-lzcnt-rdtscp-sse3-avx
+--9073-- Page sizes: currently 4096, max supported 4096
+--9073-- Valgrind library directory: /usr/lib/valgrind
+--9073-- Reading syms from /usr/bin/mpiexec.hydra
+--9073--    object doesn't have a symbol table
+--9073-- Reading syms from /lib/x86_64-linux-gnu/ld-2.23.so
+--9073--   Considering /lib/x86_64-linux-gnu/ld-2.23.so ..
+--9073--   .. CRC mismatch (computed aa979a42 wanted 9019bbb7)
+--9073--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.23.so ..
+--9073--   .. CRC is valid
+--9073-- Reading syms from /usr/lib/valgrind/memcheck-amd64-linux
+--9073--   Considering /usr/lib/valgrind/memcheck-amd64-linux ..
+--9073--   .. CRC mismatch (computed eea41ea9 wanted 2009db78)
+--9073--    object doesn't have a symbol table
+--9073--    object doesn't have a dynamic symbol table
+--9073-- Scheduler: using generic scheduler lock implementation.
+--9073-- Reading suppressions file: /usr/lib/valgrind/default.supp
+==9073== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-9073-by-sudharshan-on-???
+==9073== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-9073-by-sudharshan-on-???
+==9073== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-9073-by-sudharshan-on-???
+==9073== 
+==9073== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==9073== don't want to do, unless you know exactly what you're doing,
+==9073== or are doing some strange experiment):
+==9073==   /usr/lib/valgrind/../../bin/vgdb --pid=9073 ...command...
+==9073== 
+==9073== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==9073==   /path/to/gdb mpirun
+==9073== and then give GDB the following command
+==9073==   target remote | /usr/lib/valgrind/../../bin/vgdb --pid=9073
+==9073== --pid is optional if only one valgrind process is running
+==9073== 
+--9073-- REDIR: 0x401cfd0 (ld-linux-x86-64.so.2:strlen) redirected to 0x3809e181 (???)
+--9073-- Reading syms from /usr/lib/valgrind/vgpreload_core-amd64-linux.so
+--9073--   Considering /usr/lib/valgrind/vgpreload_core-amd64-linux.so ..
+--9073--   .. CRC mismatch (computed 2567ccf6 wanted 49420590)
+--9073--    object doesn't have a symbol table
+--9073-- Reading syms from /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so
+--9073--   Considering /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so ..
+--9073--   .. CRC mismatch (computed 0e27c9a8 wanted ac585421)
+--9073--    object doesn't have a symbol table
+==9073== WARNING: new redirection conflicts with existing -- ignoring it
+--9073--     old: 0x0401cfd0 (strlen              ) R-> (0000.0) 0x3809e181 ???
+--9073--     new: 0x0401cfd0 (strlen              ) R-> (2007.0) 0x04c31020 strlen
+--9073-- REDIR: 0x401b920 (ld-linux-x86-64.so.2:index) redirected to 0x4c30bc0 (index)
+--9073-- REDIR: 0x401bb40 (ld-linux-x86-64.so.2:strcmp) redirected to 0x4c320d0 (strcmp)
+--9073-- REDIR: 0x401dd30 (ld-linux-x86-64.so.2:mempcpy) redirected to 0x4c35270 (mempcpy)
+--9073-- Reading syms from /lib/x86_64-linux-gnu/libpthread-2.23.so
+--9073--   Considering /usr/lib/debug/.build-id/ce/17e023542265fc11d9bc8f534bb4f070493d30.debug ..
+--9073--   .. build-id is valid
+--9073-- Reading syms from /usr/lib/x86_64-linux-gnu/libhwloc.so.5.6.8
+--9073--    object doesn't have a symbol table
+--9073-- Reading syms from /lib/x86_64-linux-gnu/libc-2.23.so
+--9073--   Considering /lib/x86_64-linux-gnu/libc-2.23.so ..
+--9073--   .. CRC mismatch (computed 7a8ee3e4 wanted a5190ac4)
+--9073--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/libc-2.23.so ..
+--9073--   .. CRC is valid
+--9073-- Reading syms from /usr/lib/x86_64-linux-gnu/libnuma.so.1.0.0
+--9073--    object doesn't have a symbol table
+--9073-- Reading syms from /usr/lib/x86_64-linux-gnu/libltdl.so.7.3.1
+--9073--   Considering /usr/lib/x86_64-linux-gnu/libltdl.so.7.3.1 ..
+--9073--   .. CRC mismatch (computed 8f61a187 wanted cdc1b5b4)
+--9073--    object doesn't have a symbol table
+--9073-- Reading syms from /lib/x86_64-linux-gnu/libdl-2.23.so
+--9073--   Considering /lib/x86_64-linux-gnu/libdl-2.23.so ..
+--9073--   .. CRC mismatch (computed 39227170 wanted ab6e2c22)
+--9073--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/libdl-2.23.so ..
+--9073--   .. CRC is valid
+--9073-- REDIR: 0x5320a00 (libc.so.6:strcasecmp) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
+--9073-- REDIR: 0x531c280 (libc.so.6:strcspn) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
+--9073-- REDIR: 0x5322cf0 (libc.so.6:strncasecmp) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
+--9073-- REDIR: 0x531e6f0 (libc.so.6:strpbrk) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
+--9073-- REDIR: 0x531ea80 (libc.so.6:strspn) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
+--9073-- REDIR: 0x532014b (libc.so.6:memcpy@GLIBC_2.2.5) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
+--9073-- REDIR: 0x531e400 (libc.so.6:rindex) redirected to 0x4c308a0 (rindex)
+--9073-- REDIR: 0x5315130 (libc.so.6:malloc) redirected to 0x4c2db20 (malloc)
+--9073-- REDIR: 0x531f060 (libc.so.6:__GI_strstr) redirected to 0x4c354d0 (__strstr_sse2)
+--9073-- REDIR: 0x531f860 (libc.so.6:memchr) redirected to 0x4c32170 (memchr)
+--9073-- REDIR: 0x5325470 (libc.so.6:__GI_memcpy) redirected to 0x4c32b00 (__GI_memcpy)
+--9073-- REDIR: 0x53156c0 (libc.so.6:realloc) redirected to 0x4c2fce0 (realloc)
+--9073-- REDIR: 0x53154f0 (libc.so.6:free) redirected to 0x4c2ed80 (free)
+--9073-- REDIR: 0x5315d10 (libc.so.6:calloc) redirected to 0x4c2faa0 (calloc)
+--9073-- REDIR: 0x531c720 (libc.so.6:strlen) redirected to 0x4c30f60 (strlen)
+--9073-- REDIR: 0x531fff0 (libc.so.6:__GI_memmove) redirected to 0x4c347e0 (__GI_memmove)
+--9073-- REDIR: 0x5327760 (libc.so.6:strchrnul) redirected to 0x4c34da0 (strchrnul)
+--9073-- REDIR: 0x53203b0 (libc.so.6:__GI_mempcpy) redirected to 0x4c34fa0 (__GI_mempcpy)
+--9073-- REDIR: 0x5326480 (libc.so.6:strcasestr) redirected to 0x4c356e0 (strcasestr)
+--9073-- REDIR: 0x531f630 (libc.so.6:strstr) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
+--9073-- REDIR: 0x533b070 (libc.so.6:__strstr_sse2_unaligned) redirected to 0x4c35460 (strstr)
+--9073-- REDIR: 0x53db980 (libc.so.6:__strcasecmp_avx) redirected to 0x4c31860 (strcasecmp)
+--9073-- REDIR: 0x531cb70 (libc.so.6:__GI_strncmp) redirected to 0x4c31710 (__GI_strncmp)
+--9073-- REDIR: 0x531acd0 (libc.so.6:strcmp) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
+--9073-- REDIR: 0x5330570 (libc.so.6:__strcmp_sse2_unaligned) redirected to 0x4c31f90 (strcmp)
+--9073-- REDIR: 0x53253f0 (libc.so.6:memcpy@@GLIBC_2.14) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
+--9073-- REDIR: 0x5330820 (libc.so.6:__memcpy_sse2_unaligned) redirected to 0x4c324a0 (memcpy@@GLIBC_2.14)
+--9074-- REDIR: 0x52ca850 (libc.so.6:putenv) redirected to 0x4c35960 (putenv)
+--9074-- REDIR: 0x531aab0 (libc.so.6:__GI_strchr) redirected to 0x4c30a00 (__GI_strchr)
+--9074-- REDIR: 0x531c8c0 (libc.so.6:strnlen) redirected to 0x4c30ee0 (strnlen)
+--9073-- REDIR: 0x5320890 (libc.so.6:__GI_stpcpy) redirected to 0x4c33f80 (__GI_stpcpy)
+==9073== 
+==9073== HEAP SUMMARY:
+==9073==     in use at exit: 131,120 bytes in 2 blocks
+==9073==   total heap usage: 1,213 allocs, 1,211 frees, 315,619 bytes allocated
+==9073== 
+==9073== Searching for pointers to 2 not-freed blocks
+==9073== Checked 636,048 bytes
+==9073== 
+==9073== LEAK SUMMARY:
+==9073==    definitely lost: 0 bytes in 0 blocks
+==9073==    indirectly lost: 0 bytes in 0 blocks
+==9073==      possibly lost: 0 bytes in 0 blocks
+==9073==    still reachable: 131,120 bytes in 2 blocks
+==9073==         suppressed: 0 bytes in 0 blocks
+==9073== Reachable blocks (those to which a pointer was found) are not shown.
+==9073== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==9073== 
+==9073== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==9073== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

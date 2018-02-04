@@ -2,6 +2,7 @@
 #include<fstream>
 #include<vector>
 #include<string>
+//#include "mpi.h"
 
 using namespace std;
 #include "basic.hpp"
@@ -43,8 +44,9 @@ class reader
 					fin[1]>>x;
 					 graph.input_details[j].push_back(x); 
 				}
-
-				//graph.input_details[j].push_back(0);      // Creating place holder column count of relevant edges
+				//------------------------
+				graph.relevant_partitions.push_back(vector<int>());
+				graph.relevant_partitions[j].push_back(0); // populating initial count of relevent partitions with 0
 
 				j++;
 			}

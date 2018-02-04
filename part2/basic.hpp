@@ -4,11 +4,12 @@
 #include<string>
 #pragma once
 #define number_of_partitions 4
+#define number_of_rounds 2
 
 using namespace std;
 
-ifstream fin[10];
-ofstream fout[10];
+ifstream fin[20];
+ofstream fout[20];
 
 class basic_details
 {
@@ -20,9 +21,10 @@ public:
 	int current_round;
 	vector <int> node_degree;
 	vector <vector <float> > credit;
-	vector <vector <int> > input_graph;
-	vector <vector <int> > input_details;
-	vector <vector <int> > relevant_edges;
+	vector <vector <int> > input_graph;			//edge list
+	vector <vector <int> > input_details;		//node list
+	vector <vector <int> > relevant_edges;		//partition list
+	vector <vector <int> > relevant_partitions; //node list
 
 	basic_details()
 	{
@@ -31,6 +33,7 @@ public:
 		largest_node=0;
 		node_degree.reserve(50000000);
 		relevant_edges.reserve(5000);
+		relevant_partitions.reserve(500000);
 	}
 
 }graph;
@@ -41,5 +44,5 @@ class input_parameters
 public:
 	string filename;
 	string details;
-	int number_of_rounds;
+	//int number_of_rounds;
 }input;

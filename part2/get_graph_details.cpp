@@ -19,12 +19,14 @@ public:
 		{
 			
 			
-			if(graph.input_details[graph.input_graph[i][0]][2] == graph.input_details[graph.input_graph[i][1]][2]) //Finding relevant edges to each partition
+			if(graph.input_details[graph.input_graph[i][0]][2] == graph.input_details[graph.input_graph[i][1]][2]) //internal edge
 			{
 
-				//cout<<endl<<"edge no : "<<i<<" **"<<graph.input_details[graph.input_graph[i][0]][0];
-				graph.relevant_edges[graph.input_details[graph.input_graph[i][0]][2]].push_back(i);
+				
+				graph.relevant_edges[graph.input_details[graph.input_graph[i][0]][2]].push_back(i);	//Finding relevant edges to each partition
 				graph.relevant_edges[graph.input_details[graph.input_graph[i][0]][2]][0]++;
+				//------------------
+
 				
 			}
 			
@@ -34,6 +36,13 @@ public:
 				graph.relevant_edges[graph.input_details[graph.input_graph[i][0]][2]][0]++;	
 				graph.relevant_edges[graph.input_details[graph.input_graph[i][1]][2]].push_back(i);
 				graph.relevant_edges[graph.input_details[graph.input_graph[i][1]][2]][0]++;
+				//-----------
+
+				graph.relevant_partitions[graph.input_graph[i][0]].push_back(graph.input_details[graph.input_graph[i][1]][2]); //Storing partition of opposite node for each edge
+				graph.relevant_partitions[graph.input_graph[i][0]][0]++;
+				graph.relevant_partitions[graph.input_graph[i][1]].push_back(graph.input_details[graph.input_graph[i][0]][2]);
+				graph.relevant_partitions[graph.input_graph[i][1]][0]++;
+				
 			}
 			
 

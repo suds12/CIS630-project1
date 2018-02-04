@@ -23,6 +23,7 @@ public:
 		{
 			graph.credit.push_back(vector<float>());
 			graph.credit[i].push_back(1);
+			graph.credit[i].push_back(0);
 			//cout<<graph.credit[graph.input_graph[i][1]][graph.current_round-1];
 		}
 		//cout<<graph.input_graph[4][1];
@@ -43,6 +44,7 @@ public:
 			graph.credit[graph.input_graph[i][1]][graph.current_round] += (graph.credit[graph.input_graph[i][0]][graph.current_round-1]/graph.node_degree[graph.input_graph[i][0]]);
 		}
 		*/
+
 
 			
 	}
