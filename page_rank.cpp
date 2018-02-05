@@ -21,25 +21,38 @@ public:
 		
 		for(i=0;i<=graph.largest_node;i++)
 		{
+			/*
 			graph.credit.push_back(vector<float>());
 			graph.credit[i].push_back(1);
+			graph.credit[i].push_back(0);
+			*/
+			//------------------------
+			graph.credit[0][i]=1;
+			//graph.credit[i][1]=0;
+
+			//------------------------
 			//cout<<graph.credit[graph.input_graph[i][1]][graph.current_round-1];
 		}
 		//cout<<graph.input_graph[4][1];
 		//cout<<graph.credit[5][graph.current_round-1];
 	}
 
-	int credits_exchanger()
+	int credits_exchanger(int node1, int node2, int round)
 	{
 		int i,j;
-		
-		vector <int> visited;
+
+		graph.credit[round][node1] += graph.credit[round-1][node2]/graph.node_degree[node2];
+		graph.credit[round][node2] += graph.credit[round-1][node1]/graph.node_degree[node1];
+		/*
 		for(i=0;i<graph.number_of_rows;i++)
 		{
 
 			graph.credit[graph.input_graph[i][0]][graph.current_round] += (graph.credit[graph.input_graph[i][1]][graph.current_round-1]/graph.node_degree[graph.input_graph[i][1]]);
 			graph.credit[graph.input_graph[i][1]][graph.current_round] += (graph.credit[graph.input_graph[i][0]][graph.current_round-1]/graph.node_degree[graph.input_graph[i][0]]);
 		}
+		*/
+
+
 			
 	}
 }pr;
