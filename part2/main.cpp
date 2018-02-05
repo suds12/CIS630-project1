@@ -84,8 +84,8 @@ public:
 		int accumulator()
 		{
 			int i=0; 
-			int start_s=clock();   
-			
+			   
+			int start_s=clock();
 			cout<<"started reading"<<endl;
 			read.graph_reader();
 			cout<<"started degree"<<endl;
@@ -146,6 +146,7 @@ public:
 
 	int main(int argc, char** argv)
 	{
+		int start_s=clock();
 
 		int i, j, k, m, l=1, tg=0, local[10];
 	//string credit_filename;
@@ -184,7 +185,7 @@ public:
 				//cout<<endl<<"fincr "<<graph.number_of_nodes*l<<" " << world_rank << endl;
 					MPI_Allreduce(MPI_IN_PLACE, *graph.credit, 500, MPI_FLOAT, MPI_MAX, MPI_COMM_WORLD);
 
-					
+
 					//MPI_Barrier(MPI_COMM_WORLD);
 					//cout<<endl<<"end "<<graph.number_of_nodes*l<<" " << world_rank << endl;
 					cout<<"ended round "<<l<<" From partition "<<graph.credit[1][2]<<endl;
@@ -209,42 +210,10 @@ public:
 			fout[6+i]<<endl;
 		}
 
-
-
-
-		if(world_rank==0)
-		{
-
-
-		//------------------
-
-
-		//cout<<endl<<graph.relevant_partitions[graph.input_graph[1][0]][2]<<endl;
-		//cout<<endl<<graph.input_details[graph.input_graph[1][1]][2]<<endl;
-
-
-
-
-		//MPI_Send(&tg, 1, MPI_INT, 4, 0, MPI_COMM_WORLD);
-
-		//et.accumulator();
-		}
 		et.display_dump();
-
-
-		if(world_rank==1)
-		{
-		//MPI_Recv(&tg, 1, MPI_INT, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);	
-
-		}
-
-
-
-
-
-
-
-	//MPI_Barrier(MPI_COMM_WORLD);
 		MPI_Finalize();
+		int stop_s=clock();
+		cout << "time: " << ((stop_s-start_s)/double(CLOCKS_PER_SEC))/10<< endl;
+		
 	}
 
