@@ -29,6 +29,11 @@ public:
 			{
 				fin[0]>>x;
 				graph.input_graph[j].push_back(x); 
+
+				if(graph.input_graph[j][i]>graph.largest_node)
+				{
+					graph.largest_node = graph.input_graph[j][i];		//Finding largest node
+				}
 			}
 			j++;
 		}
@@ -47,6 +52,7 @@ public:
 				//------------------------
 			graph.relevant_partitions.push_back(vector<int>());
 			graph.relevant_partitions[j].push_back(0); // populating initial count of relevent partitions with 0
+			//graph.credit[0][j]=1;
 
 			j++;
 		}

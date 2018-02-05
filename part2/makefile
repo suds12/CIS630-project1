@@ -1,7 +1,7 @@
 GCC=mpic++ -std=c++11
 
 all: main.cpp
-	$(GCC) ./main.cpp -o main  
+	$(GCC) ./main.cpp -g -o main  
 
  
 run: main 

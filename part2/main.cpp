@@ -42,6 +42,8 @@ public:
 		}
 		cerr << "dump input" << endl;
 		int temp;
+
+
 		fout[3].open("dump/relevant_edges_dump.txt");
 		for(i=0;i<number_of_partitions;i++)
 		{
@@ -114,6 +116,7 @@ public:
 
 	}et;
 
+	/*
 	class process_manager
 	{
 	public:
@@ -126,6 +129,7 @@ public:
 
 		}
 	}p[number_of_partitions];
+	*/
 
 	int main(int argc, char** argv)
 	{
@@ -149,7 +153,7 @@ public:
 		data.get_data();
 		//cout<<"started initial credits"<<endl; 
 		pr.initial_credits_populator();
-		//cout<<endl<<"done"<<endl;
+		cerr<<endl<<"ln "<<graph.number_of_nodes<<endl;
 	//--------------------
 	//input.number_of_rounds=atoi(argv[2]);
 
@@ -187,21 +191,44 @@ public:
 		}
 		cout << "completed rounds" << endl;
 
+		/*
 		stringstream credit_filename;
-		credit_filename << "dump/credits_dump_" << world_rank << ".txt";
+		credit_filename << "dump/partition" << world_rank << ".txt";
 		fout[6+i].open(credit_filename.str());
 		for(k=0;k<=number_of_rounds;k++)
 		{
-			cout << "round : " << k << endl;
+			//cout << "round : " << k << endl;
 			for(m=0;m<graph.number_of_nodes;m++)
 			{
+				if()
 				fout[6+i]<<graph.credit[k][m]<<" ";
 			}
 			fout[6+i]<<endl;
 		}
-		cout << "Write complete" << endl;
+		//cout << "Write complete" << endl;
+		*/
 
-		et.display_dump();
+
+		stringstream credit_filename;
+		credit_filename << "dump/partition" << world_rank << ".txt";
+		fout[6+i].open(credit_filename.str());
+		for(k=0;k<graph.number_of_nodes;k++)
+		{
+			if(graph.input_details[k][2]==world_rank)
+			{
+				fout[6+i]<<k<<" "<<graph.input_details[k][1]<<" ";
+
+				for(m=0;m<=number_of_rounds;m++)
+				{
+					fout[6+i]<<graph.credit[m][k]<<" ";
+				}
+				fout[6+i]<<endl;
+			}
+			
+		}
+
+
+		//et.display_dump();
 		MPI_Finalize();
 		int stop_s=clock();
 		//cout << "time: " << ((stop_s-start_s)/double(CLOCKS_PER_SEC))<< endl;

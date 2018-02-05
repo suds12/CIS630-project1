@@ -38,11 +38,12 @@ public:
 				graph.relevant_edges[graph.input_details[graph.input_graph[i][1]][2]][0]++;
 				//-----------
 
+				/*
 				graph.relevant_partitions[graph.input_graph[i][0]].push_back(graph.input_details[graph.input_graph[i][1]][2]); //Storing partition of opposite node for each edge
 				graph.relevant_partitions[graph.input_graph[i][0]][0]++;
 				graph.relevant_partitions[graph.input_graph[i][1]].push_back(graph.input_details[graph.input_graph[i][0]][2]);
 				graph.relevant_partitions[graph.input_graph[i][1]][0]++;
-				
+				*/
 			}
 			
 
@@ -54,7 +55,7 @@ public:
 
 				if(graph.input_graph[i][j]>graph.largest_node)	
 				{
-					graph.largest_node=graph.input_graph[i][j];	//Find largest node
+					//graph.largest_node=graph.input_graph[i][j];	//Find largest node
 				}
 
 				
