@@ -19,7 +19,7 @@ public:
 	int largest_node;
 	int largest_partition;
 	int current_round;
-	float credit[50][10];
+	float **credit = nullptr;
 	vector <int> node_degree;
 	//vector <vector <float> > credit;
 	vector <vector <int> > input_graph;			//edge list

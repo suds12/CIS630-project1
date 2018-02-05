@@ -5,6 +5,7 @@
 #include<cstdlib>
 #include<string.h>
 #include<sstream>
+#include<ctime>
 
 #include "mpi.h"
 #include "page_rank.cpp"
@@ -39,7 +40,7 @@ public:
 			fout[2]<<"\n";
 				//---------
 		}
-
+		cerr << "dump input" << endl;
 		int temp;
 		fout[3].open("dump/relevant_edges_dump.txt");
 		for(i=0;i<number_of_partitions;i++)
@@ -54,30 +55,12 @@ public:
 				fout[3]<<"\n";
 			}
 
-			fout[4].open("dump/credit_dump.txt");
-			for(i=0;i<graph.number_of_nodes;i++)
-			{
-				fout[4]<<i<<" "<<graph.credit[i][1]<<"\n";
-			}
+			
 
-
-			fout[5].open("dump/relevant_partition_dump.txt");
-			for(i=0;i<graph.number_of_nodes;i++)
-			{
-				temp=graph.relevant_partitions[i][0];
-				temp++;
-
-				fout[5]<<i<<" ";
-				for(j=0;j<temp;j++)   
-				{
-					fout[5]<<graph.relevant_partitions[i][j]<<" ";
-				}
-				fout[5]<<"\n";
-			}
+			
 
 
 			
-			//cerr<<graph.relevant_partitions[1][2];
 			
 		}
 
@@ -146,7 +129,8 @@ public:
 
 	int main(int argc, char** argv)
 	{
-		int start_s=clock();
+		//int start_s=clock();
+		clock_t total_time = clock();
 
 		int i, j, k, m, l=1, tg=0, local[10];
 	//string credit_filename;
@@ -169,7 +153,7 @@ public:
 	//--------------------
 	//input.number_of_rounds=atoi(argv[2]);
 
-
+		
 		while(l<=number_of_rounds)
 		{
 			for(i=0;i<number_of_partitions;i++)
@@ -178,18 +162,20 @@ public:
 				{
 					cout<<"started round "<<l<<" From partition "<<i<<endl;
 
+
 					for(j=1;j<=graph.relevant_edges[i][0];j++)
 					{
 						pr.credits_exchanger(graph.input_graph[graph.relevant_edges[i][j]][0], graph.input_graph[graph.relevant_edges[i][j]][1], l);
 					}
+
 				//cout<<endl<<"fincr "<<graph.number_of_nodes*l<<" " << world_rank << endl;
 					//MPI_Allreduce(MPI_IN_PLACE, (*graph.credit)+(l*graph.number_of_nodes), graph.number_of_nodes, MPI_FLOAT, MPI_MAX, MPI_COMM_WORLD);
-					MPI_Allreduce(MPI_IN_PLACE, graph.credit+l, graph.number_of_nodes, MPI_FLOAT, MPI_MAX, MPI_COMM_WORLD);
+					MPI_Allreduce(MPI_IN_PLACE, graph.credit[l], graph.number_of_nodes, MPI_FLOAT, MPI_MAX, MPI_COMM_WORLD);
 
 
 					//MPI_Barrier(MPI_COMM_WORLD);
 					//cout<<endl<<"end "<<graph.number_of_nodes*l<<" " << world_rank << endl;
-					cout<<"ended round "<<l<<" From partition "<<graph.credit[1][2]<<endl;
+					//cout<<"ended round "<<l<<" From partition "<<graph.credit[1][2]<<endl;
 
 
 
@@ -199,22 +185,27 @@ public:
 			l++;
 			graph.current_round++;
 		}
+		cout << "completed rounds" << endl;
+
 		stringstream credit_filename;
 		credit_filename << "dump/credits_dump_" << world_rank << ".txt";
 		fout[6+i].open(credit_filename.str());
 		for(k=0;k<=number_of_rounds;k++)
 		{
+			cout << "round : " << k << endl;
 			for(m=0;m<graph.number_of_nodes;m++)
 			{
 				fout[6+i]<<graph.credit[k][m]<<" ";
 			}
 			fout[6+i]<<endl;
 		}
+		cout << "Write complete" << endl;
 
 		et.display_dump();
 		MPI_Finalize();
 		int stop_s=clock();
-		cout << "time: " << ((stop_s-start_s)/double(CLOCKS_PER_SEC))<< endl;
+		//cout << "time: " << ((stop_s-start_s)/double(CLOCKS_PER_SEC))<< endl;
+		printf("\n Total Time taken by partition %d = %.2fs\n",world_rank,(double)(clock() - total_time)/CLOCKS_PER_SEC);
 		
 	}
 
