@@ -183,7 +183,8 @@ public:
 						pr.credits_exchanger(graph.input_graph[graph.relevant_edges[i][j]][0], graph.input_graph[graph.relevant_edges[i][j]][1], l);
 					}
 				//cout<<endl<<"fincr "<<graph.number_of_nodes*l<<" " << world_rank << endl;
-					MPI_Allreduce(MPI_IN_PLACE, *graph.credit, 500, MPI_FLOAT, MPI_MAX, MPI_COMM_WORLD);
+					//MPI_Allreduce(MPI_IN_PLACE, (*graph.credit)+(l*graph.number_of_nodes), graph.number_of_nodes, MPI_FLOAT, MPI_MAX, MPI_COMM_WORLD);
+					MPI_Allreduce(MPI_IN_PLACE, graph.credit+l, graph.number_of_nodes, MPI_FLOAT, MPI_MAX, MPI_COMM_WORLD);
 
 
 					//MPI_Barrier(MPI_COMM_WORLD);
@@ -201,9 +202,9 @@ public:
 		stringstream credit_filename;
 		credit_filename << "dump/credits_dump_" << world_rank << ".txt";
 		fout[6+i].open(credit_filename.str());
-		for(k=0;k<graph.number_of_nodes;k++)
+		for(k=0;k<=number_of_rounds;k++)
 		{
-			for(m=0;m<=number_of_rounds;m++)
+			for(m=0;m<graph.number_of_nodes;m++)
 			{
 				fout[6+i]<<graph.credit[k][m]<<" ";
 			}
@@ -213,7 +214,7 @@ public:
 		et.display_dump();
 		MPI_Finalize();
 		int stop_s=clock();
-		cout << "time: " << ((stop_s-start_s)/double(CLOCKS_PER_SEC))/10<< endl;
+		cout << "time: " << ((stop_s-start_s)/double(CLOCKS_PER_SEC))<< endl;
 		
 	}
 

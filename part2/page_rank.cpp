@@ -27,7 +27,7 @@ public:
 			graph.credit[i].push_back(0);
 			*/
 			//------------------------
-			graph.credit[i][0]=1;
+			graph.credit[0][i]=1;
 			//graph.credit[i][1]=0;
 
 			//------------------------
@@ -41,8 +41,8 @@ public:
 	{
 		int i,j;
 
-		graph.credit[node1][round] += graph.credit[node2][round-1]/graph.node_degree[node2];
-		graph.credit[node2][round] += graph.credit[node1][round-1]/graph.node_degree[node1];
+		graph.credit[round][node1] += graph.credit[round-1][node2]/graph.node_degree[node2];
+		graph.credit[round][node2] += graph.credit[round-1][node1]/graph.node_degree[node1];
 		/*
 		for(i=0;i<graph.number_of_rows;i++)
 		{
