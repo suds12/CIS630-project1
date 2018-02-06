@@ -50,8 +50,8 @@ public:
 				graph.input_details[j].push_back(x); 
 			}
 				//------------------------
-			graph.relevant_partitions.push_back(vector<int>());
-			graph.relevant_partitions[j].push_back(0); // populating initial count of relevent partitions with 0
+			//graph.relevant_partitions.push_back(vector<int>());
+			//graph.relevant_partitions[j].push_back(0); // populating initial count of relevent partitions with 0
 			//graph.credit[0][j]=1;
 
 			j++;
