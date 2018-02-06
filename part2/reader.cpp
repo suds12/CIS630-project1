@@ -62,16 +62,16 @@ public:
 			graph.number_of_nodes=graph.input_details.size();//Finding size
 			//graph.number_of_nodes--; // Adjusting index
 			//------------------------------------------------------------------
-			graph.credit = new float*[number_of_rounds+1];
-			for(int i = 0; i <= number_of_rounds; ++i)
+			graph.credit = new float*[input.number_of_rounds+1];
+			for(int i = 0; i <= input.number_of_rounds; ++i)
 			{
-				graph.credit[i] = new float[graph.number_of_nodes];
+				graph.credit[i] = new float[graph.largest_node+1];
 			}
 
 			//------------------------------------------------------------------
 			
 
-			for(i=0;i<number_of_partitions;i++)				//populating initial count of relevating edges of each node to 0 
+			for(i=0;i<input.number_of_partitions;i++)				//populating initial count of relevating edges of each node to 0 
 			{
 				graph.relevant_edges.push_back(vector<int>());
 				graph.relevant_edges[i].push_back(0);

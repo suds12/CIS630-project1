@@ -45,7 +45,7 @@ public:
 
 
 		fout[3].open("dump/relevant_edges_dump.txt");
-		for(i=0;i<number_of_partitions;i++)
+		for(i=0;i<input.number_of_partitions;i++)
 		{
 			temp=graph.relevant_edges[i][0];
 			temp++;
@@ -80,7 +80,7 @@ public:
 			pr.initial_credits_populator();
 			/*
 
-			while(i < input.number_of_rounds)
+			while(i < input.input.number_of_rounds)
 			{
 				cout<<endl<<"started round :"<<i+1<<endl;
 				pr.credits_exchanger();
@@ -128,7 +128,7 @@ public:
 			trigger=0;
 
 		}
-	}p[number_of_partitions];
+	}p[input.number_of_partitions];
 	*/
 
 	int main(int argc, char** argv)
@@ -143,8 +143,11 @@ public:
 		int world_rank,world_size;
 		MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);
 		MPI_Comm_size(MPI_COMM_WORLD, &world_size);
+
 		input.filename=argv[1];
 		input.details=argv[2];
+		input.number_of_rounds = atoi(argv[3]);
+		input.number_of_partitions=atoi(argv[4]);
 
 	//----------------
 		//cout<<"started reading"<<endl;
@@ -155,12 +158,12 @@ public:
 		pr.initial_credits_populator();
 		cerr<<endl<<"ln "<<graph.largest_node<<endl;
 	//--------------------
-	//input.number_of_rounds=atoi(argv[2]);
+	
 
 		
-		while(l<=number_of_rounds)
+		while(l<=input.number_of_rounds)
 		{
-			for(i=0;i<number_of_partitions;i++)
+			for(i=0;i<input.number_of_partitions;i++)
 			{
 				if(world_rank==i)
 				{
@@ -195,7 +198,7 @@ public:
 		stringstream credit_filename_all;
 		credit_filename_all << "dump/credit" << world_rank << ".txt";
 		fout[6+i].open(credit_filename_all.str());
-		for(k=0;k<=number_of_rounds;k++)
+		for(k=0;k<=input.number_of_rounds;k++)
 		{
 			//cout << "round : " << k << endl;
 			for(m=0;m<=graph.largest_node;m++)
@@ -217,7 +220,7 @@ public:
 			{
 				fout[12+i]<<k<<" "<<graph.input_details[k][1]<<" ";
 
-				for(m=0;m<=number_of_rounds;m++)
+				for(m=0;m<=input.number_of_rounds;m++)
 				{
 					fout[12+i]<<graph.credit[m][k]<<" ";
 				}

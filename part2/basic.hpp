@@ -3,8 +3,8 @@
 #include<vector>
 #include<string>
 #pragma once
-#define number_of_partitions 4
-#define number_of_rounds 3
+//#define number_of_partitions 4
+//#define number_of_rounds 3
 
 using namespace std;
 
@@ -26,6 +26,8 @@ public:
 	vector <vector <int> > input_details;		//node list
 	vector <vector <int> > relevant_edges;		//partition list
 	vector <vector <int> > relevant_partitions; //node list
+	//----------------------
+	//int **input_graph = nullptr;
 
 
 	basic_details()
@@ -46,5 +48,8 @@ class input_parameters
 public:
 	string filename;
 	string details;
-	//int number_of_rounds;
+	int number_of_rounds;
+	int number_of_partitions;
+
+	
 }input;
