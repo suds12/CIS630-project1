@@ -153,7 +153,7 @@ public:
 		data.get_data();
 		//cout<<"started initial credits"<<endl; 
 		pr.initial_credits_populator();
-		cerr<<endl<<"ln "<<graph.number_of_nodes<<endl;
+		cerr<<endl<<"ln "<<graph.largest_node<<endl;
 	//--------------------
 	//input.number_of_rounds=atoi(argv[2]);
 
@@ -174,7 +174,7 @@ public:
 
 				//cout<<endl<<"fincr "<<graph.number_of_nodes*l<<" " << world_rank << endl;
 					//MPI_Allreduce(MPI_IN_PLACE, (*graph.credit)+(l*graph.number_of_nodes), graph.number_of_nodes, MPI_FLOAT, MPI_MAX, MPI_COMM_WORLD);
-					MPI_Allreduce(MPI_IN_PLACE, graph.credit[l], graph.number_of_nodes, MPI_FLOAT, MPI_MAX, MPI_COMM_WORLD);
+					MPI_Allreduce(MPI_IN_PLACE, graph.credit[l], graph.largest_node+1, MPI_FLOAT, MPI_MAX, MPI_COMM_WORLD);
 
 
 					//MPI_Barrier(MPI_COMM_WORLD);
@@ -191,38 +191,37 @@ public:
 		}
 		cout << "completed rounds" << endl;
 
-		/*
-		stringstream credit_filename;
-		credit_filename << "dump/partition" << world_rank << ".txt";
-		fout[6+i].open(credit_filename.str());
+		
+		stringstream credit_filename_all;
+		credit_filename_all << "dump/credit" << world_rank << ".txt";
+		fout[6+i].open(credit_filename_all.str());
 		for(k=0;k<=number_of_rounds;k++)
 		{
 			//cout << "round : " << k << endl;
-			for(m=0;m<graph.number_of_nodes;m++)
+			for(m=0;m<=graph.largest_node;m++)
 			{
-				if()
 				fout[6+i]<<graph.credit[k][m]<<" ";
 			}
 			fout[6+i]<<endl;
 		}
 		//cout << "Write complete" << endl;
-		*/
+		
 
 
 		stringstream credit_filename;
 		credit_filename << "dump/partition" << world_rank << ".txt";
-		fout[6+i].open(credit_filename.str());
-		for(k=0;k<graph.number_of_nodes;k++)
+		fout[12+i].open(credit_filename.str());
+		for(k=0;k<=graph.largest_node;k++)
 		{
 			if(graph.input_details[k][2]==world_rank)
 			{
-				fout[6+i]<<k<<" "<<graph.input_details[k][1]<<" ";
+				fout[12+i]<<k<<" "<<graph.input_details[k][1]<<" ";
 
 				for(m=0;m<=number_of_rounds;m++)
 				{
-					fout[6+i]<<graph.credit[m][k]<<" ";
+					fout[12+i]<<graph.credit[m][k]<<" ";
 				}
-				fout[6+i]<<endl;
+				fout[12+i]<<endl;
 			}
 			
 		}
