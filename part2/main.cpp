@@ -150,7 +150,7 @@ public:
 		//cout<<"started reading"<<endl;
 		read.graph_reader();
 
-		cout<<"Time to read input files from partition "<<world_rank<<" = "<<(double)(clock() - total_time)/CLOCKS_PER_SEC;
+		cout<<"Time to read input files from partition "<<world_rank<<" = "<<(double)(clock() - total_time)/CLOCKS_PER_SEC<<endl;
 		//cout<<"started degree"<<endl;
 		data.get_data();
 		//cout<<"started initial credits"<<endl; 
@@ -174,7 +174,7 @@ public:
 					{
 						pr.credits_exchanger(graph.input_graph[graph.relevant_edges[i][j]][0], graph.input_graph[graph.relevant_edges[i][j]][1], l);
 					}
-					cout<<"Time for round "<<l<<" by partition "<<world_rank<<" = "<<(double)(clock() - tstart)/CLOCKS_PER_SEC;
+					cout<<"Time for round "<<l<<" by partition "<<world_rank<<" = "<<(double)(clock() - tstart)/CLOCKS_PER_SEC<<endl;
 
 				//cout<<endl<<"fincr "<<graph.number_of_nodes*l<<" " << world_rank << endl;
 					//MPI_Allreduce(MPI_IN_PLACE, (*graph.credit)+(l*graph.number_of_nodes), graph.number_of_nodes, MPI_FLOAT, MPI_MAX, MPI_COMM_WORLD);
@@ -190,7 +190,7 @@ public:
 				}
 				if(world_rank==0)
 				{
-					cout<<"Total time for round "<<l<<" = "<<(double)(clock() - tstart)/CLOCKS_PER_SEC;
+				cout<<"Total time for round "<<l<<" = "<<(double)(clock() - tstart)/CLOCKS_PER_SEC<<endl;
 				}
 
 			}
@@ -202,7 +202,7 @@ public:
 		/*
 		stringstream credit_filename_all;
 		credit_filename_all << "dump/credit" << world_rank << ".txt";
-		fout[6+i].open(credit_filename_all.str());
+		fout[6+].open(credit_filename_all.str());
 		for(k=0;k<=input.number_of_rounds;k++)
 		{
 			//cout << "round : " << k << endl;
