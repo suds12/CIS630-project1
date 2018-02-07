@@ -149,40 +149,48 @@ public:
 	//----------------
 		//cout<<"started reading"<<endl;
 		read.graph_reader();
+
+		cout<<"Time to read input files from partition "<<world_rank<<" = "<<(double)(clock() - total_time)/CLOCKS_PER_SEC;
 		//cout<<"started degree"<<endl;
 		data.get_data();
 		//cout<<"started initial credits"<<endl; 
 		pr.initial_credits_populator();
-		cerr<<endl<<"ln "<<graph.largest_node<<endl;
+		//cerr<<endl<<"ln "<<graph.largest_node<<endl;
 	//--------------------
 	
 
 		
 		while(l<=input.number_of_rounds)
 		{
+			clock_t tstart = clock();
 			for(i=0;i<input.number_of_partitions;i++)
 			{
 				if(world_rank==i)
 				{
-					cout<<"started round "<<l<<" From partition "<<i<<endl;
+					//cout<<"started round "<<l<<" From partition "<<i<<endl;
 
 
 					for(j=1;j<=graph.relevant_edges[i][0];j++)
 					{
 						pr.credits_exchanger(graph.input_graph[graph.relevant_edges[i][j]][0], graph.input_graph[graph.relevant_edges[i][j]][1], l);
 					}
+					cout<<"Time for round "<<l<<" by partition "<<world_rank<<" = "<<(double)(clock() - tstart)/CLOCKS_PER_SEC;
 
 				//cout<<endl<<"fincr "<<graph.number_of_nodes*l<<" " << world_rank << endl;
 					//MPI_Allreduce(MPI_IN_PLACE, (*graph.credit)+(l*graph.number_of_nodes), graph.number_of_nodes, MPI_FLOAT, MPI_MAX, MPI_COMM_WORLD);
 					MPI_Allreduce(MPI_IN_PLACE, graph.credit[l], graph.largest_node+1, MPI_FLOAT, MPI_MAX, MPI_COMM_WORLD);
 
 
+
+
 					//MPI_Barrier(MPI_COMM_WORLD);
 					//cout<<endl<<"end "<<graph.number_of_nodes*l<<" " << world_rank << endl;
 					//cout<<"ended round "<<l<<" From partition "<<graph.credit[1][2]<<endl;
 
-
-
+				}
+				if(world_rank==0)
+				{
+					cout<<"Total time for round "<<l<<" = "<<(double)(clock() - tstart)/CLOCKS_PER_SEC;
 				}
 
 			}
@@ -234,6 +242,6 @@ public:
 		MPI_Finalize();
 		int stop_s=clock();
 		//cout << "time: " << ((stop_s-start_s)/double(CLOCKS_PER_SEC))<< endl;
-		printf("\n Total Time taken by partition %d = %.2fs\n",world_rank,(double)(clock() - total_time)/CLOCKS_PER_SEC);
+		//printf("\n Total Time taken by partition %d = %.2fs\n",world_rank,(double)(clock() - total_time)/CLOCKS_PER_SEC);
 		
 }

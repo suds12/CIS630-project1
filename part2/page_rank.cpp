@@ -45,8 +45,7 @@ public:
 		graph.credit[round][node1] += graph.credit[round-1][node2]/graph.input_details[node2][1];
 		graph.credit[round][node2] += graph.credit[round-1][node1]/graph.input_details[node1][1];
 		//cerr<<node2<<" ***** "<<graph.input_details[node2][1]<<endl;
-		if (node1 == 5)
-			cerr << "node2: " << node2  << " -  "<< graph.credit[round][node1] << " = " << graph.credit[round-1][node2] << " / " << graph.input_details[node2][1] << " = " << graph.credit[round-1][node2]/graph.input_details[node2][1]  <<endl;
+		
 		/*
 		for(i=0;i<graph.number_of_rows;i++)
 		{
