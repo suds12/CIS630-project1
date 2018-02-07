@@ -189,9 +189,9 @@ public:
 			l++;
 			graph.current_round++;
 		}
-		cout << "completed rounds" << endl;
+		//cout << "completed rounds" << endl;
 
-		
+		/*
 		stringstream credit_filename_all;
 		credit_filename_all << "dump/credit" << world_rank << ".txt";
 		fout[6+i].open(credit_filename_all.str());
@@ -205,7 +205,7 @@ public:
 			fout[6+i]<<endl;
 		}
 		//cout << "Write complete" << endl;
-		
+		*/
 
 
 		stringstream credit_filename;
@@ -213,21 +213,24 @@ public:
 		fout[12+i].open(credit_filename.str());
 		for(k=0;k<=graph.largest_node;k++)
 		{
-			if(graph.input_details[k][2]==world_rank)
+			if(graph.input_details[k][1] != 0)
 			{
-				fout[12+i]<<k<<" "<<graph.input_details[k][1]<<" ";
-
-				for(m=0;m<=input.number_of_rounds;m++)
+				if(graph.input_details[k][2]==world_rank)
 				{
-					fout[12+i]<<graph.credit[m][k]<<" ";
+					fout[12+i]<<k<<" "<<graph.input_details[k][1]<<" ";
+
+					for(m=0;m<=input.number_of_rounds;m++)
+					{
+						fout[12+i]<<graph.credit[m][k]<<" ";
+					}
+					fout[12+i]<<endl;
 				}
-				fout[12+i]<<endl;
 			}
 			
 		}
 
 
-		et.display_dump();
+		//et.display_dump();
 		MPI_Finalize();
 		int stop_s=clock();
 		//cout << "time: " << ((stop_s-start_s)/double(CLOCKS_PER_SEC))<< endl;
