@@ -20,9 +20,28 @@ public:
 	{
 		int i=0,x,j=0,flag=1;
 		fin[0].open(input.filename.c_str());
+		i = 0;
+		while(fin[0] >> x)
+		{
+			if (i==0)
+				graph.input_graph.push_back(vector<int>());
+			
+			graph.input_graph[j].push_back(x); 
+
+			if(graph.input_graph[j][i]>graph.largest_node)
+			{
+				graph.largest_node = graph.input_graph[j][i];		//Finding largest node
+			}
+			i = (i+1)%2;
+			//----------------------------------------------------
+			if (i==0)
+				j++;
+		}
 
 
-		while(!fin[0].eof())
+
+		//----------------------------------
+		/*while(!fin[0].eof())
 		{
 			graph.input_graph.push_back(vector<int>());
 			for(i=0;i<2;i++)
@@ -35,28 +54,63 @@ public:
 					graph.largest_node = graph.input_graph[j][i];		//Finding largest node
 				}
 			}
+			//----------------------------------------------------
 			j++;
-		}
+		}*/
+
+
+
 		fin[0].close();
 			//------------------------------------------------------------------read partition details
 		j=0;
+		int shouldread=1;
 		fin[1].open(input.details.c_str());
 		while(!fin[1].eof())
 		{
 			graph.input_details.push_back(vector<int>());
+			if(shouldread==1)
+			{
+
+				
+
+			//--------------------------------------
+				fin[1]>>x;
+			}
+			if(x!=j)
+			{
+				graph.input_details[j].push_back(j);
+				//fin[1]>>x;
+				graph.input_details[j].push_back(0);
+				//fin[1]>>x;
+				graph.input_details[j].push_back(0);
+				shouldread = 0;
+			}
+			else
+			{
+				graph.input_details[j].push_back(x);
+				fin[1]>>x;
+				graph.input_details[j].push_back(x);
+				fin[1]>>x;
+				graph.input_details[j].push_back(x);
+				shouldread=1;
+			}
+
+			/*
+			//-------------------------------------------------
 			for(i=0;i<3;i++)
 			{
 				fin[1]>>x;
 				graph.input_details[j].push_back(x); 
 			}
-				//------------------------
 			//graph.relevant_partitions.push_back(vector<int>());
 			//graph.relevant_partitions[j].push_back(0); // populating initial count of relevent partitions with 0
 			//graph.credit[0][j]=1;
+			//---------------------------------------------------------------
+			*/
 
 			j++;
 		}
-
+		
 			graph.number_of_rows=graph.input_graph.size();//Finding size
 			//graph.number_of_rows--;  //Adjusting index
 			graph.number_of_nodes=graph.input_details.size();//Finding size
@@ -65,7 +119,7 @@ public:
 			graph.credit = new float*[input.number_of_rounds+1];
 			for(int i = 0; i <= input.number_of_rounds; ++i)
 			{
-				graph.credit[i] = new float[graph.largest_node+1];
+				graph.credit[i] = new float[graph.largest_node+1]();
 			}
 
 			//------------------------------------------------------------------
@@ -76,7 +130,6 @@ public:
 				graph.relevant_edges.push_back(vector<int>());
 				graph.relevant_edges[i].push_back(0);
 			}
-			
 			
 		}	
 	}read;

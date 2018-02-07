@@ -68,11 +68,12 @@ public:
 
 		int accumulator()
 		{
-			int i=0; 
+			int i=0,j=0; 
 			   
 			int start_s=clock();
 			cout<<"started reading"<<endl;
 			read.graph_reader();
+
 			cout<<"started degree"<<endl;
 			data.get_data();
 
@@ -226,7 +227,7 @@ public:
 		}
 
 
-		//et.display_dump();
+		et.display_dump();
 		MPI_Finalize();
 		int stop_s=clock();
 		//cout << "time: " << ((stop_s-start_s)/double(CLOCKS_PER_SEC))<< endl;
